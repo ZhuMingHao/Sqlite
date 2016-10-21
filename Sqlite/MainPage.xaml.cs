@@ -30,12 +30,12 @@ namespace Sqlite
     public sealed partial class MainPage : Page
     {
         private DBManager manager = DBManager.Instance;
+        private LocalStoreManager StoreManager = LocalStoreManager.Instance;
         public MainPage()
         {
             this.InitializeComponent();
 
         }
-
 
         private async void readSQlite_Click(object sender, RoutedEventArgs e)
         {
@@ -50,8 +50,9 @@ namespace Sqlite
             //    }
             //    await new MessageDialog(sb.ToString()).ShowAsync();
             //}
-            StringBuilder sb = new StringBuilder();
-            TableQuery<Person> list = await manager.GetTableValue<Person>();        
+             StringBuilder sb = new StringBuilder();
+            var list =  manager.GetTableValue<Person>();
+           
             foreach (Person item in list)
             {
                 sb.AppendLine($"{item.Id} {item.UserName} {item.Age} {item.Address}");
@@ -64,6 +65,28 @@ namespace Sqlite
             manager.Init<Person>();
             manager.InsertSqlite<Person>(new Person { Address = "北京", Age = 20, SomeProperty = "哈哈", UserName = "王小明" });
 
+        }
+
+        private async void Lunch_Click(object sender, RoutedEventArgs e)
+        {
+            //var uriBing = new Uri("lifecycle:");
+            ////var promptOptions = new Windows.System.LauncherOptions();
+            ////promptOptions.TreatAsUntrusted = true;
+            //var options = new Windows.System.LauncherOptions();
+            //var success = await Windows.System.Launcher.LaunchUriAsync(uriBing);
+
+          await StoreManager.SetObjectForKey("hello","zhuminghao");
+        }
+
+        private async void GetValue_Click(object sender, RoutedEventArgs e)
+        {
+           var str =  await StoreManager.GetObjectForKey("hello");
+            Debug.WriteLine(str);
+        }
+
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            await StoreManager.DeletContainer();
         }
     }
 }

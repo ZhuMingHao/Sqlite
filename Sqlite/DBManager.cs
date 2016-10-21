@@ -43,13 +43,17 @@ namespace Sqlite
         /// /获取表的数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public async Task<TableQuery<T>>  GetTableValue<T>() where T : class
+        public List<T> GetTableValue<T>() where T : class
         {
            // StringBuilder sb = new StringBuilder();
             using (var db = GetDbConnection())
             {
-                return await Task.Run(()=> db.Table<T>()); ;
-                
+              
+                //Task<TableQuery<T>> task = new Task<TableQuery<T>>(() => db.Table <T>());
+                //task.Start();
+                //return task.Result;
+                List<T> peoples = (from p  in  db.Table<T>() select p).ToList();
+                return peoples;
                 //foreach (var item in list)
                 //{
                 //    PropertyInfo id = item.GetType().GetProperty("Id");

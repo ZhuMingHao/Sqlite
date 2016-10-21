@@ -11,5 +11,8 @@
                  VerticalAlignment="Center">
         <Button Name="addUser" Content="ADD User" Click="addUser_Click"/>
         <Button Name="readSQlite" Content="Read SQlite" Click="readSQlite_Click"/>
+        <Button Name="Lunch" Content="Lunch" Click="Lunch_Click"/>
+        <Button Name="GetValue" Content="GetValue" Click="GetValue_Click"/>
+        <Button Name="Delete" Content="Delete" Click="Delete_Click"/>
     </StackPanel>
 </Page>

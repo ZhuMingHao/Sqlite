@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
-
+using System.Diagnostics;
 
 namespace Sqlite
 {
@@ -34,6 +34,8 @@ namespace Sqlite
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             DbFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Sqlite.db");
+            Debug.WriteLine(DbFilePath);
+
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace Sqlite
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
